@@ -13,7 +13,7 @@ def main():
     global FPSCLOCK, DISPLAYSURF, BASICFONT, BIGFONT
 
     pygame.init()
-    DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
+    DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT), FULLSCREEN)
     FPSCLOCK = pygame.time.Clock()
     BASICFONT = pygame.font.Font('freesansbold.ttf', 18)
     BIGFONT = pygame.font.Font('freesansbold.ttf', 100)
@@ -24,6 +24,8 @@ def run_game():
     checkForQuit()
 
     DISPLAYSURF.fill(GRAY)
+
+    pygame.display.update()
 
     FPSCLOCK.tick(FPS)
 
