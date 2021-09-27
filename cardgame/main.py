@@ -13,7 +13,7 @@ def main():
     global FPSCLOCK, DISPLAYSURF, BASICFONT, BIGFONT
 
     pygame.init()
-    DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT), FULLSCREEN)
+    DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT), RESIZABLE)
     FPSCLOCK = pygame.time.Clock()
     BASICFONT = pygame.font.Font('freesansbold.ttf', 18)
     BIGFONT = pygame.font.Font('freesansbold.ttf', 100)
@@ -22,6 +22,11 @@ def main():
 
 def run_game():
     checkForQuit()
+
+    for event in pygame.event.get():
+        if (event.type == KEYDOWN):
+            if event.key == K_f:
+                pygame.display.toggle_fullscreen()
 
     DISPLAYSURF.fill(GRAY)
 
