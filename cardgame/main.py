@@ -2,6 +2,8 @@ import sys
 import pygame
 from pygame.locals import *
 
+from cardgame.cards.GeneralCard import GeneralCard
+
 
 WINDOWWIDTH = 1024
 WINDOWHEIGHT = 768
@@ -21,18 +23,31 @@ def main():
         run_game()
 
 def run_game():
-    checkForQuit()
+    render_update_group = pygame.sprite.RenderUpdates()
+    GeneralCard.containers = render_update_group
+    my_card = GeneralCard(32, 0)
 
-    for event in pygame.event.get():
-        if (event.type == KEYDOWN):
-            if event.key == K_f:
-                pygame.display.toggle_fullscreen()
+    while True:
+        checkForQuit()
 
-    DISPLAYSURF.fill(GRAY)
+        for event in pygame.event.get():
+            if (event.type == KEYDOWN):
+                if event.key == K_f:
+                    pygame.display.toggle_fullscreen()
 
-    pygame.display.update()
+        DISPLAYSURF.fill(GRAY)
 
-    FPSCLOCK.tick(FPS)
+        # clear all the sprites
+        render_update_group.clear(DISPLAYSURF, DISPLAYSURF)
+
+        # update all the sprites
+        render_update_group.update()
+
+        dirty = render_update_group.draw(DISPLAYSURF)
+
+        pygame.display.update(dirty)
+
+        FPSCLOCK.tick(FPS)
 
 def terminate():
     pygame.quit()
