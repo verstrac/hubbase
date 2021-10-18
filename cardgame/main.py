@@ -31,9 +31,16 @@ def run_game():
         checkForQuit()
 
         for event in pygame.event.get():
-            if (event.type == KEYDOWN):
+            if event.type == KEYDOWN:
                 if event.key == K_f:
                     pygame.display.toggle_fullscreen()
+            if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
+                my_card.rect.x = pygame.mouse.get_pos()[0]
+                my_card.rect.y = pygame.mouse.get_pos()[1]
+                pygame.mouse.get_rel()
+            if event.type == pygame.MOUSEBUTTONUP:
+
+                print(pygame.mouse.get_rel())
 
         DISPLAYSURF.fill(GRAY)
 
