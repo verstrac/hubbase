@@ -35,12 +35,18 @@ def run_game():
                 if event.key == K_f:
                     pygame.display.toggle_fullscreen()
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
-                my_card.rect.x = pygame.mouse.get_pos()[0]
-                my_card.rect.y = pygame.mouse.get_pos()[1]
-                pygame.mouse.get_rel()
-            if event.type == pygame.MOUSEBUTTONUP:
+                if my_card.rect.collidepoint(pygame.mouse.get_pos()):
+                    my_card.is_clicked = True
+                    pygame.mouse.get_rel()
+            if event.type == MOUSEBUTTONUP:
+                my_card.is_clicked = False
 
-                print(pygame.mouse.get_rel())
+            if event.type == pygame.MOUSEMOTION:
+                if my_card.is_clicked is True:
+                    my_card.move_card(pygame.mouse.get_rel())
+
+
+
 
         DISPLAYSURF.fill(GRAY)
 

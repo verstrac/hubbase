@@ -12,3 +12,10 @@ class GeneralCard(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x_position
         self.rect.y = y_position
+        self.is_clicked = False
+
+    def move_card(self, x_and_y_rel):
+        self.rect.x += x_and_y_rel[0]
+        self.rect.y += x_and_y_rel[1]
+
+
