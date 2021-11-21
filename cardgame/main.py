@@ -26,6 +26,8 @@ def run_game():
     render_update_group = pygame.sprite.RenderUpdates()
     GeneralCard.containers = render_update_group
     my_card = GeneralCard(32, 0)
+    my_other_card = GeneralCard(64, 64)
+    card_list = [my_card, my_other_card]
 
     while True:
         checkForQuit()
@@ -35,15 +37,19 @@ def run_game():
                 if event.key == K_f:
                     pygame.display.toggle_fullscreen()
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
-                if my_card.rect.collidepoint(pygame.mouse.get_pos()):
-                    my_card.is_clicked = True
-                    pygame.mouse.get_rel()
+                for card in card_list:
+                    if card.rect.collidepoint(pygame.mouse.get_pos()):
+                        card.is_clicked = True
+                        pygame.mouse.get_rel()
             if event.type == MOUSEBUTTONUP:
-                my_card.is_clicked = False
+                for card in card_list:
+                    if card.is_clicked is True:
+                        card.is_clicked = False
 
             if event.type == pygame.MOUSEMOTION:
-                if my_card.is_clicked is True:
-                    my_card.move_card(pygame.mouse.get_rel())
+                for card in card_list:
+                    if card.is_clicked is True:
+                        card.move_card(pygame.mouse.get_rel())
 
 
 
