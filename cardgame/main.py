@@ -2,33 +2,41 @@ import sys
 import pygame
 from pygame.locals import *
 
-from cardgame.cards.GeneralCard import GeneralCard
-
+import utils.Utils
+from cards.GeneralCard import GeneralCard
+from utils import Colors
+from utils.Fonts import Fonts
 
 WINDOWWIDTH = 1024
 WINDOWHEIGHT = 768
-GRAY = (185, 185, 185)
 FPS = 60
 
 
 def main():
-    global FPSCLOCK, DISPLAYSURF, BASICFONT, BIGFONT
+    global FPSCLOCK, DISPLAYSURF
 
     pygame.init()
     DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT), RESIZABLE)
     FPSCLOCK = pygame.time.Clock()
-    BASICFONT = pygame.font.Font('freesansbold.ttf', 18)
-    BIGFONT = pygame.font.Font('freesansbold.ttf', 100)
     while True:
         run_game()
 
 def run_game():
+    fonts = Fonts()
     render_update_group = pygame.sprite.RenderUpdates()
     GeneralCard.containers = render_update_group
     my_card = GeneralCard(32, 0)
+    menu_surf, menu_rect = utils.Utils.make_text_objs('MENU', fonts.MENU_FONT, Colors.BLACK)
+
+
 
     while True:
         checkForQuit()
+
+        DISPLAYSURF.fill(Colors.GRAY)
+
+        menu_rect.topleft = (WINDOWWIDTH - 130, 0)
+        DISPLAYSURF.blit(menu_surf, menu_rect)
 
         for event in pygame.event.get():
             if event.type == KEYDOWN:
@@ -39,10 +47,7 @@ def run_game():
                 my_card.rect.y = pygame.mouse.get_pos()[1]
                 pygame.mouse.get_rel()
             if event.type == pygame.MOUSEBUTTONUP:
-
                 print(pygame.mouse.get_rel())
-
-        DISPLAYSURF.fill(GRAY)
 
         # clear all the sprites
         render_update_group.clear(DISPLAYSURF, DISPLAYSURF)
@@ -62,7 +67,7 @@ def terminate():
 
 
 def checkForQuit():
-    for event in pygame.event.get(QUIT):  # get all the QUIT events
+    for _ in pygame.event.get(QUIT):  # get all the QUIT events
         terminate()  # terminate if any QUIT events are present
     for event in pygame.event.get(KEYUP):  # get all the KEYUP events
         if event.key == K_ESCAPE:
