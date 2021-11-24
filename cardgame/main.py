@@ -26,6 +26,8 @@ def run_game():
     render_update_group = pygame.sprite.RenderUpdates()
     GeneralCard.containers = render_update_group
     my_card = GeneralCard(32, 0)
+    my_other_card = GeneralCard(64, 64)
+    card_list = [my_card, my_other_card]
     menu_surf, menu_rect = utils.Utils.make_text_objs('MENU', fonts.MENU_FONT, Colors.BLACK)
 
 
@@ -43,11 +45,24 @@ def run_game():
                 if event.key == K_f:
                     pygame.display.toggle_fullscreen()
             if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
-                my_card.rect.x = pygame.mouse.get_pos()[0]
-                my_card.rect.y = pygame.mouse.get_pos()[1]
-                pygame.mouse.get_rel()
-            if event.type == pygame.MOUSEBUTTONUP:
-                print(pygame.mouse.get_rel())
+                for card in card_list:
+                    if card.rect.collidepoint(pygame.mouse.get_pos()):
+                        card.is_clicked = True
+                        pygame.mouse.get_rel()
+            if event.type == MOUSEBUTTONUP:
+                for card in card_list:
+                    if card.is_clicked is True:
+                        card.is_clicked = False
+
+            if event.type == pygame.MOUSEMOTION:
+                for card in card_list:
+                    if card.is_clicked is True:
+                        card.move_card(pygame.mouse.get_rel())
+
+
+
+
+        DISPLAYSURF.fill(GRAY)
 
         # clear all the sprites
         render_update_group.clear(DISPLAYSURF, DISPLAYSURF)
