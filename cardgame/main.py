@@ -29,7 +29,7 @@ def run_game():
     fonts = Fonts()
     render_update_group = pygame.sprite.RenderUpdates()
     GeneralCard.containers = render_update_group
-    the_cards = CardManager()
+    card_manager = CardManager()
     menu_surf, menu_rect = utils.utils.make_text_objs('MENU', fonts.MENU_FONT, colors.BLACK)
     game_state_manager = GameStateManager()
     menu_manager = MenuManager()
@@ -41,25 +41,12 @@ def run_game():
         DISPLAYSURF.blit(menu_surf, menu_rect)
 
         if game_state_manager.get_current_state() == GameStates.GAME:
+            card_manager.card_event(pygame.event, menu_rect, game_state_manager)
             for event in pygame.event.get():
-                if event.type == KEYDOWN:
+                if event.type == KEYDOWN: #TODO need to move this to make it function again, maybe add to menu
                     if event.key == K_f:
                         pygame.display.toggle_fullscreen()
-                if event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed(3)[0]:
-                    for card in the_cards.card_list:
-                        if card.rect.collidepoint(pygame.mouse.get_pos()):
-                            card.is_clicked = True
-                            pygame.mouse.get_rel()
-                    if menu_rect.collidepoint(pygame.mouse.get_pos()):
-                        game_state_manager.set_game_state(GameStates.MENU)
-                if event.type == MOUSEBUTTONUP:
-                    for card in the_cards.card_list:
-                        if card.is_clicked is True:
-                            card.is_clicked = False
-                if event.type == pygame.MOUSEMOTION:
-                    for card in the_cards.card_list:
-                        if card.is_clicked is True:
-                            card.move_card(pygame.mouse.get_rel())
+
         elif game_state_manager.get_current_state() == GameStates.MENU:
             if menu_manager.game_menu is None:
                 menu_manager.initialize_menu(WINDOWHEIGHT, WINDOWWIDTH, render_update_group)
