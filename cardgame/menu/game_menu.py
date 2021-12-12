@@ -42,6 +42,12 @@ class GameMenu(pygame.sprite.Sprite):
         self.close_rect.y = 5
         self.image.blit(self.close_surf, self.close_rect)
 
+        # create the fullscreen text and add it to the menu
+        menu_font = fonts.MENU_FONT
+        self.fullscreen_surf, self.fullscreen_rect = utils.make_text_objs("Fullscreen", menu_font, colors.RED)
+        self.fullscreen_rect.midtop = (MENU_WIDTH / 2, 35)
+        self.image.blit(self.fullscreen_surf, self.fullscreen_rect)
+
     def is_quit_button_clicked(self, pos):
         gap_between_menu_and_window_horizontal = self.containing_window_width / 2 - MENU_WIDTH / 2
         x_pos = pos[0] - gap_between_menu_and_window_horizontal
@@ -55,3 +61,10 @@ class GameMenu(pygame.sprite.Sprite):
         gap_between_menu_and_window_vertical = self.containing_window_height / 2 - MENU_HEIGHT / 2
         y_pos = pos[1] - gap_between_menu_and_window_vertical
         return self.close_rect.collidepoint(x_pos, y_pos)
+
+    def is_fullscreen_button_clicked(self, pos):
+        gap_between_menu_and_window_horizontal = self.containing_window_width / 2 - MENU_WIDTH / 2
+        x_pos = pos[0] - gap_between_menu_and_window_horizontal
+        gap_between_menu_and_window_vertical = self.containing_window_height / 2 - MENU_HEIGHT / 2
+        y_pos = pos[1] - gap_between_menu_and_window_vertical
+        return self.fullscreen_rect.collidepoint(x_pos, y_pos)

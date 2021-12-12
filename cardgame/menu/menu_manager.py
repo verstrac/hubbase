@@ -32,3 +32,5 @@ class MenuManager:
                     self.remove_menu()
                 elif self.game_menu.is_quit_button_clicked(event.pos):
                     utils.utils.terminate()
+                elif self.game_menu.is_fullscreen_button_clicked(event.pos):
+                    pygame.display.toggle_fullscreen()

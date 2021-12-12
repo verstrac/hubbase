@@ -42,11 +42,6 @@ def run_game():
 
         if game_state_manager.get_current_state() == GameStates.GAME:
             card_manager.card_event(pygame.event, menu_rect, game_state_manager)
-            for event in pygame.event.get():
-                if event.type == KEYDOWN: #TODO need to move this to make it function again, maybe add to menu
-                    if event.key == K_f:
-                        pygame.display.toggle_fullscreen()
-
         elif game_state_manager.get_current_state() == GameStates.MENU:
             if menu_manager.game_menu is None:
                 menu_manager.initialize_menu(WINDOWHEIGHT, WINDOWWIDTH, render_update_group)
