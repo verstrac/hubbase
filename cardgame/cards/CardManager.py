@@ -1,9 +1,8 @@
 import pygame
 
 from cards.GeneralCard import GeneralCard
-from menu.menu_manager import MenuManager
-from state.game_state_manager import GameStateManager
 from utils.game_states import GameStates
+
 
 class CardManager:
 
