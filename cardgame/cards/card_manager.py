@@ -1,14 +1,16 @@
 import pygame
 
-from cards.GeneralCard import GeneralCard
+from cards.general_card import GeneralCard
+from cards.stronghold_card import StrongholdCard
 from utils.game_states import GameStates
 
 
 class CardManager:
 
     def __init__(self):
-        self.my_card = GeneralCard(32, 0)
-        self.my_other_card = GeneralCard(64, 64)
+        self.my_card = GeneralCard(120, 648)
+        self.my_other_card = GeneralCard(200, 648)
+        self.stronghold = StrongholdCard(452, 528)
         self.card_list = [self.my_card, self.my_other_card]
 
     def get_card_list(self):

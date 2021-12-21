@@ -2,8 +2,9 @@ import pygame
 from pygame.locals import *
 
 import utils.utils
-from cards.GeneralCard import GeneralCard
-from cards.CardManager import CardManager
+from cards.general_card import GeneralCard
+from cards.card_manager import CardManager
+from cards.stronghold_card import StrongholdCard
 from menu.menu_manager import MenuManager
 from state.game_state_manager import GameStateManager
 from utils import colors
@@ -29,10 +30,13 @@ def run_game():
     fonts = Fonts()
     render_update_group = pygame.sprite.RenderUpdates()
     GeneralCard.containers = render_update_group
+    StrongholdCard.containers = render_update_group
     card_manager = CardManager()
     menu_surf, menu_rect = utils.utils.make_text_objs('MENU', fonts.MENU_FONT, colors.BLACK)
     game_state_manager = GameStateManager()
     menu_manager = MenuManager()
+    stronghold = pygame.image.load('resources/Stronghold.png')
+    stronghold.get_rect().topleft = (0, 0)
 
     while True:
         DISPLAYSURF.fill(colors.GRAY)
