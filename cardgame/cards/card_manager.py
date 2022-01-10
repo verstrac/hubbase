@@ -23,6 +23,7 @@ class CardManager:
                     if card.rect.collidepoint(pygame.mouse.get_pos()):
                         card.is_clicked = True
                         pygame.mouse.get_rel()
+                        card.change_card_number(9)
                     if menu_rect.collidepoint(pygame.mouse.get_pos()):
                         game_state_manager.set_game_state(GameStates.MENU)
             if event.type == pygame.MOUSEBUTTONUP:
