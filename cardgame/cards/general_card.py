@@ -18,13 +18,19 @@ class GeneralCard(pygame.sprite.Sprite):
         self.rect.y = y_position
         self.is_clicked = False
 
-        # Create number on on right lower corner of card.
+        # Create number on right lower corner of card.
         self.lower_right_image = pygame.image.load('resources/Number1.png')
         self.lower_right_rect = self.lower_right_image.get_rect()
         self.lower_right_rect.x = CARD_WIDTH - 28
         self.lower_right_rect.y = 90
         self.image.blit(self.lower_right_image, self.lower_right_rect)
 
+        # Create number on left lower corner of card
+        self.lower_left_image = pygame.image.load('resources/NumberSheet.png').subsurface(32, 0, 32, 32)
+        self.lower_left_rect = self.lower_left_image.get_rect()
+        self.lower_left_rect.x = 5
+        self.lower_left_rect.y = 90
+        self.image.blit(self.lower_left_image, self.lower_left_rect)
 
     def move_card(self, x_and_y_rel):
         self.rect.x += x_and_y_rel[0]
